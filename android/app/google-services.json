@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605456594226",
+    "project_id": "editing-file-4cae1",
+    "storage_bucket": "editing-file-4cae1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605456594226:android:51f46bf0df2c5e71bd532b",
+        "android_client_info": {
+          "package_name": "com.preet.editing_file"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARO8egGSAGWop0WLWfEKdBI25sElgW10s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

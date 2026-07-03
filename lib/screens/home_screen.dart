@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Collab Document Editor'),
+        title: const Text('Document Editor And Excel'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               controller: _docIdController,
               decoration: const InputDecoration(
                 labelText: 'Document ID Enter',
-                hintText: 'e.g. my-first-doc',
+                hintText: 'my-first-doc',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.file_copy),
               ),
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
               icon: const Icon(Icons.login),
-              label: const Text('Join Document', style: TextStyle(fontSize: 16)),
+              label: const Text('Join Excel Sheet', style: TextStyle(fontSize: 16)),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
               ),
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
               icon: const Icon(Icons.login),
-              label: const Text('Join Document', style: TextStyle(fontSize: 16)),
+              label: const Text('Join Document Editor', style: TextStyle(fontSize: 16)),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
               ),

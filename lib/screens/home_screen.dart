@@ -1,5 +1,6 @@
+import 'package:editing_file/screens/execl_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+// import 'package:uuid/uuid.dart';
 import 'editor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _userIdController = TextEditingController();
   
   
-  final String _userId = const Uuid().v4();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 hintText: 'Enter name',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.file_copy),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: () {
+                if (_docIdController.text.trim().isNotEmpty) {
+                  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ExcelScreen(
+                        excelId: _docIdController.text.trim(),
+                        userName: _userIdController.text.trim(), 
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text(' Document ID need')),
+                  );
+                }
+              },
+              icon: const Icon(Icons.login),
+              label: const Text('Join Document', style: TextStyle(fontSize: 16)),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 50),
               ),
             ),
             const SizedBox(height: 20),

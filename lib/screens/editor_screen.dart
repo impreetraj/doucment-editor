@@ -32,6 +32,7 @@ class _EditorScreenState extends State<EditorScreen> {
   DateTime _lastMouseUpdate = DateTime.now();
 
   void _listenToMouseMovements() {
+    
     _mouseSubscription = _firestore
         .collection('documents')
         .doc(widget.documentId)

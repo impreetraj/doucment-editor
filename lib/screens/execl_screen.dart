@@ -18,6 +18,50 @@ class _ExcelScreenState extends State<ExcelScreen> {
   late ExcelDataSource dataSource;
   StreamSubscription<DocumentSnapshot>? _subscription;
 
+
+  StreamSubscription? _mouseSubscription;
+  Map<String, Map<String, dynamic>> _activeMice = {};
+  DateTime _lastMouseUpdate = DateTime.now();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  void _listenToMouseMovementsexcel() {
+    
+    _mouseSubscription = _firestore
+        .collection('excel_sheets')
+        .doc(widget.excelId)
+        .collection('mice')
+        .snapshots()
+        .listen((snapshot) {
+      if (mounted) {
+        final mice = <String, Map<String, dynamic>>{};
+        for (var doc in snapshot.docs) {
+          if (doc.id != widget.userName) {
+            mice[doc.id] = doc.data();
+          }
+        }
+        setState(() {
+          _activeMice = mice;
+        });
+      }
+    });
+  }
+
+  void _updateLocalMousePositionexcel(Offset localPosition) {
+    if (DateTime.now().difference(_lastMouseUpdate).inMilliseconds > 100) {
+      _lastMouseUpdate = DateTime.now();
+      _firestore
+          .collection('excel_sheets')
+          .doc(widget.excelId)
+          .collection('mice')
+          .doc(widget.userName)
+          .set({
+        'x': localPosition.dx,
+        'y': localPosition.dy,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +69,9 @@ class _ExcelScreenState extends State<ExcelScreen> {
     dataSource.userName = widget.userName;
     dataSource.excelId = widget.excelId;
     _listenToFirebaseRealtime();
+     _listenToMouseMovementsexcel();
+
+
   }
 
   @override
@@ -96,9 +143,14 @@ class _ExcelScreenState extends State<ExcelScreen> {
         title: Text("${widget.userName ?? ''}"), 
         centerTitle: true
       ),
-      body: Column(
-        children: [
-          Container(
+      body: Listener(
+        onPointerHover: (event) => _updateLocalMousePositionexcel(event.localPosition),
+        onPointerMove: (event) => _updateLocalMousePositionexcel(event.localPosition),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
             height: 45,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             color: Colors.grey.shade200,
@@ -236,6 +288,9 @@ class _ExcelScreenState extends State<ExcelScreen> {
             ),
           ),
         ],
+      ),
+          ],
+        ),
       ),
     );
   }

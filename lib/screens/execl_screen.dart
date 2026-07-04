@@ -289,6 +289,41 @@ class _ExcelScreenState extends State<ExcelScreen> {
           ),
         ],
       ),
+            ..._activeMice.entries.map((entry) {
+              final data = entry.value;
+              final x = data['x'] as double? ?? 0.0;
+              final y = data['y'] as double? ?? 0.0;
+              
+              return Positioned(
+                left: x,
+                top: y,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.pan_tool_alt,
+                      color: Colors.redAccent,
+                      size: 24,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '${entry.key.substring(0, 1)}',
+                        style: const TextStyle(
+                          color: Colors.white, 
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
           ],
         ),
       ),
